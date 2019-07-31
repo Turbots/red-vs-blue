@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Red vs Blue Referee Service</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="1" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css"/>
+    <link rel="stylesheet" th:href="@{/css/progress.css}" href="../static/css/progress.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="title">
+    <h1>RED VS BLUE WORKSHOP</h1>
+</div>
+<div class="leaderboard red">
+    <h1>
+        <svg class="ico-cup">
+            <use xlink:href="#cup"></use>
+        </svg>
+        RED TEAM
+    </h1>
+    <ol>
+        <!--/*@thymesVar id="redTeam" type="java.util.List<io.pivotal.workshop.redvsblue.game.Player>"*/-->
+        <th:block th:each="player : ${redTeam}">
+            <li value="1">
+                <mark th:text="${player.getName()}">Dieter Hubau</mark>
+                <small th:text="${player.getScore()}">100</small>
+            </li>
+        </th:block>
+    </ol>
+    <h1>
+        <svg class="ico-cup">
+            <use xlink:href="#cup"></use>
+        </svg>
+        SCORE: <b th:text="${score.getFirst()}">53</b>
+    </h1>
+    <!--/*@thymesVar id="score" type="org.springframework.data.util.Pair"*/-->
+    <progress max="1000" value="80" th:value="${score.getFirst()}" class="html5" id="red"></progress>
+</div>
+<div class="leaderboard blue">
+    <h1>
+        <svg class="ico-cup">
+            <use xlink:href="#cup"></use>
+        </svg>
+        BLUE TEAM
+    </h1>
+    <ol>
+        <!--/*@thymesVar id="player" type="io.pivotal.workshop.redvsblue.game.Player"*/-->
+        <!--/*@thymesVar id="blueTeam" type="java.util.List<io.pivotal.workshop.redvsblue.game.Player>"*/-->
+        <th:block th:each="player : ${blueTeam}">
+            <li value="1">
+                <mark th:text="${player.getName()}">Dieter Hubau</mark>
+                <small th:text="${player.getScore()}">100</small>
+            </li>
+        </th:block>
+    </ol>
+    <h1>
+        <svg class="ico-cup">
+            <use xlink:href="#cup"></use>
+        </svg>
+        SCORE: <b th:text="${score.getSecond()}">53</b>
+    </h1>
+    <!--/*@thymesVar id="score" type="org.springframework.data.util.Pair"*/-->
+    <progress max="1000" value="80" th:value="${score.getSecond()}" class="html5" id="blue"></progress>
+</div>
+<a class="logo left" target="_blank" href="https://www.pivotal.io/">
+    <img src="../static/images/pivotal.jpg" th:src="@{/images/pivotal.jpg}" alt="Pivotal Software, Inc."/>
+</a>
+<a class="logo center" target="_blank" href="https://www.github.com/Turbots/red-vs-blue/">
+    <img src="../static/images/github.png" th:src="@{/images/github.png}" alt="Github Project"/>
+</a>
+<a class="logo right" target="_blank" href="https://pivotal.io/platform">
+    <img src="../static/images/pcf.png" th:src="@{/images/pcf.png}" alt="Pivotal Cloud Foundry"/>
+</a>
+</body>
+</html>

@@ -1,0 +1,11 @@
+---
+applications:
+  - name: red-vs-blue
+    path: target/red-vs-blue.jar
+    buildpacks:
+      - java_buildpack_offline
+    instances: 1
+    memory: 1G
+    services:
+      - player-db
+      - rabbit

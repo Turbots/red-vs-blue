@@ -1,0 +1,11 @@
+spring:
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: LAZY
+  jpa:
+    hibernate:
+      ddl-auto: create
+      id:
+        new_generator_mappings: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
