@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Profile;
 @SpringBootApplication
 @EnableBinding(InputChannels.class)
 @EnableConfigurationProperties(ScoringProperties.class)
-public class RedVsBlueApplication {
+public class RefereeApplication {
 
-    public RedVsBlueApplication(PlayerRepository playerRepository) {
+    public RefereeApplication(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(RedVsBlueApplication.class, args);
+        SpringApplication.run(RefereeApplication.class, args);
     }
 
     private final PlayerRepository playerRepository;

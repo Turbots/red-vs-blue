@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 @ActiveProfiles("dev")
 @SuppressWarnings("OptionalGetWithoutIsPresent")
-public class RedVsBlueApplicationTests {
+public class RefereeApplicationTests {
 
     @Autowired
     private InputChannels inputChannels;
