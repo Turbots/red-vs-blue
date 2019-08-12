@@ -1,2 +1,0 @@
-# Red vs Blue workshop
-
