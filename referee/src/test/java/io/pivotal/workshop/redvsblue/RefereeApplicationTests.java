@@ -5,21 +5,19 @@ import io.pivotal.workshop.redvsblue.game.Player;
 import io.pivotal.workshop.redvsblue.game.PlayerRepository;
 import io.pivotal.workshop.redvsblue.game.scoring.ScoringProperties;
 import io.pivotal.workshop.redvsblue.game.scoring.messaging.InputChannels;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("dev")
 @SuppressWarnings("OptionalGetWithoutIsPresent")
-public class RefereeApplicationTests {
+class RefereeApplicationTests {
 
     @Autowired
     private InputChannels inputChannels;
@@ -31,7 +29,8 @@ public class RefereeApplicationTests {
     private ScoringProperties scoringProperties;
 
     @Test
-    public void testMessages() {
+    @DisplayName("Message resulting in successful hit is registered correctly in database")
+    void testScoringGeneratesAHit() {
         this.scoringProperties.setOdds(100);
 
         Player dieterHubau = this.playerRepository.findById(1L).get();

@@ -1,0 +1,33 @@
+= Referee REST API
+
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+= Resources
+
+== Referee REST API
+
+=== Players
+
+==== Create a Player
+
+To create a new Player, send a JSON payload to the /player endpoint:
+
+include::{snippets}/createPlayer/http-request.adoc[]
+
+The response will include the Player ID:
+
+include::{snippets}/createPlayer/response-fields.adoc[]
+
+==== Delete a Player
+
+Delete a player by sending an HTTP DELETE request to the /player endpoint:
+
+include::{snippets}/deletePlayer/http-request.adoc[]
+
+=== Scoring
+

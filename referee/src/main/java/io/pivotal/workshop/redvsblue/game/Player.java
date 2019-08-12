@@ -1,6 +1,7 @@
 package io.pivotal.workshop.redvsblue.game;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Player {
@@ -8,8 +9,13 @@ public class Player {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private String name;
+
     private Long score;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Team team;
 
@@ -52,5 +58,15 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + "'" +
+                ", score=" + score +
+                ", team=" + team +
+                '}';
     }
 }

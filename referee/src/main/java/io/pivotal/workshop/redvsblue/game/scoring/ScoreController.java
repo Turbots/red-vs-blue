@@ -1,16 +1,22 @@
 package io.pivotal.workshop.redvsblue.game.scoring;
 
 import io.pivotal.workshop.redvsblue.game.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/score")
 public class ScoreController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScoreController.class);
 
     private final ScoringService scoringService;
 
@@ -18,17 +24,7 @@ public class ScoreController {
         this.scoringService = scoringService;
     }
 
-    @PostMapping("/reset")
-    public void resetScores() {
-        this.scoringService.resetScores();
-    }
-
-    @GetMapping("/ranking")
-    public ResponseEntity<List<Player>> getRanking() {
-        return ResponseEntity.ok(this.scoringService.getOverallRanking());
-    }
-
-    @GetMapping("/score")
+    @GetMapping
     public ResponseEntity<Pair<Long, Long>> getScore() {
         Pair<Long, Long> score = this.scoringService.getScore();
 
@@ -38,4 +34,17 @@ public class ScoreController {
 
         return ResponseEntity.ok(score);
     }
+
+    @PostMapping("/reset")
+    public void resetScores() {
+        LOGGER.info("Resetting scores...");
+
+        this.scoringService.resetScores();
+    }
+
+    @GetMapping("/ranking")
+    public ResponseEntity<List<Player>> getRanking() {
+        return ResponseEntity.ok(this.scoringService.getOverallRanking());
+    }
+
 }

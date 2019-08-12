@@ -14,6 +14,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<Player> findFirst5ByTeam(Team team, Sort score);
 
     long countPlayerByTeam(Team red);
+    boolean existsByName(String name);
 
     @Query("select sum(score) from Player p where p.team = :team")
     Long countScoresForTeam(Team team);
