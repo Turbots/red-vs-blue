@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -18,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
@@ -36,6 +39,9 @@ class PlayerControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    private PlayerRepository playerRepository;
 
     private MockMvc mockMvc;
     private ObjectMapper mapper;
@@ -60,7 +66,8 @@ class PlayerControllerTest {
 
     @Test
     void createPlayer() throws Exception {
-        String json = writer.writeValueAsString(fakePlayer("Random Guy"));
+        Player randomGuy = fakePlayer("Random Guy");
+        String json = writer.writeValueAsString(randomGuy);
 
         this.mockMvc.perform(post("/player")
                 .content(json)
@@ -74,6 +81,10 @@ class PlayerControllerTest {
                                 fieldWithPath("score").description("Player Score"),
                                 fieldWithPath("team").description("Player Team"))
                 ));
+
+        randomGuy.setScore(0L);
+        assertTrue(this.playerRepository.existsByName(randomGuy.getName()));
+        assertEquals(new Long(0L), this.playerRepository.findOne(Example.of(randomGuy)).get().getScore());
     }
 
     @Test
@@ -87,8 +98,8 @@ class PlayerControllerTest {
                 .andExpect(status().isConflict());
     }
 
-    private Object fakePlayer(String name) {
-        return new Player(name, Team.RED, 0L);
+    private Player fakePlayer(String name) {
+        return new Player(name, Team.RED, 5L);
     }
 
     @Test

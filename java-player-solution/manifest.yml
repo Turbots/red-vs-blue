@@ -1,0 +1,10 @@
+---
+applications:
+  - name: red-team-dieter-hubau
+    path: target/red-player.jar
+    buildpacks:
+      - java_buildpack_offline
+    instances: 1
+    memory: 1G
+    services:
+      - rabbit

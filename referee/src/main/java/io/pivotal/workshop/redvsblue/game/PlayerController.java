@@ -28,6 +28,9 @@ public class PlayerController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Player [" + player.getName() + "] already exists");
         }
 
+        // new players start at 0
+        player.setScore(0L);
+
         return ResponseEntity.accepted().body(this.playerRepository.save(player));
     }
 

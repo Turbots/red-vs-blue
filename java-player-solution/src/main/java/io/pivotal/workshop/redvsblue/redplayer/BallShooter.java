@@ -30,12 +30,12 @@ public class BallShooter {
         this.outputChannels = outputChannels;
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 5000)
     public void shoot() {
         LOGGER.info("Looking for who to shoot...");
 
         ResponseEntity<List<Player>> response = restTemplate.exchange(
-                API_BASE_URL + "/ranking/",
+                API_BASE_URL + "/score/ranking/",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Player>>() {
