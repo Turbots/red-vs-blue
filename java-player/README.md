@@ -104,7 +104,7 @@ Then add the following to your pom.xml in the `build/plugins` section:
     <version>1.4.0</version>
     <configuration>
         <to>
-            <image>${build.finalName}</image>
+            <image>${project.build.finalName}</image>
         </to>
     </configuration>
     <executions>
