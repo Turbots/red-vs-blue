@@ -17,7 +17,7 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     boolean existsByName(String name);
 
     @Query("select sum(score) from Player p where p.team = :team")
-    Long countScoresForTeam(Team team);
+    Long teamScoreOf(Team team);
 
     @Modifying
     @Query("update Player p set p.score = 0")

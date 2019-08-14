@@ -7,7 +7,6 @@ import io.pivotal.workshop.redvsblue.game.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -44,13 +43,11 @@ public class ScoringService {
         this.playerRepository.resetScores();
     }
 
-    public Pair<Long, Long> getScore() {
+    public Score getScore() {
         if (this.playerRepository.countPlayerByTeam(Team.RED) == 0 || this.playerRepository.countPlayerByTeam(Team.RED) == 0) {
             return null;
         }
-        return Pair.of(
-                this.playerRepository.countScoresForTeam(Team.RED),
-                this.playerRepository.countScoresForTeam(Team.BLUE));
+        return new Score(this.playerRepository.teamScoreOf(Team.RED), this.playerRepository.teamScoreOf(Team.BLUE));
     }
 
     public boolean isValidThrow(@NotNull Ball ball) {

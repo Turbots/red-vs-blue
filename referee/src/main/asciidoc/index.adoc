@@ -1,5 +1,4 @@
 = Referee REST API
-
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -11,23 +10,68 @@
 
 == Referee REST API
 
-=== Players
+=== Players `/player`
 
 ==== Create a Player
 
-To create a new Player, send a JSON payload to the /player endpoint:
+To create a new Player, do an `HTTP POST` on the `/player` endpoint:
 
-include::{snippets}/createPlayer/http-request.adoc[]
+include::{snippets}/create-player/http-request.adoc[]
 
 The response will include the Player ID:
 
-include::{snippets}/createPlayer/response-fields.adoc[]
+include::{snippets}/create-player/response-fields.adoc[]
+
+When a player already exists with the same name, you will receive an `HTTP 409 CONFLICT` response:
+
+include::{snippets}/create-player-that-exists-should-fail/http-response.adoc[]
 
 ==== Delete a Player
 
-Delete a player by sending an HTTP DELETE request to the /player endpoint:
+Delete a player by sending an `HTTP DELETE` request on the `/player` endpoint:
 
-include::{snippets}/deletePlayer/http-request.adoc[]
+include::{snippets}/delete-player/http-request.adoc[]
 
-=== Scoring
+An `HTTP 200 OK` indicates the player has been successfully deleted:
 
+include::{snippets}/delete-player/http-response.adoc[]
+
+=== Scoring `/score`
+
+==== Fetch the score
+
+To fetch the score, do an `HTTP GET` on the `/score` endpoint:
+
+include::{snippets}/get-score/http-request.adoc[]
+
+The response will show the current score:
+
+include::{snippets}/get-score/http-response.adoc[]
+
+==== Reset the score
+
+To reset all scores to zero, perform an `HTTP POST` on the `/score` endpoint:
+
+include::{snippets}/reset-score/http-request.adoc[]
+
+If you get back an `HTTP 200 OK` the score has been successfully reset:
+
+include::{snippets}/reset-score/http-response.adoc[]
+
+==== Ranking
+
+If you want to get the ranking on all players, including their ID, name, team and score, send an `HTTP GET` to `/score/ranking`:
+
+include::{snippets}/get-ranking/http-request.adoc[]
+
+The response should look something like this:
+
+include::{snippets}/get-ranking/http-response.adoc[]
+
+[source,sql]
+----
+CREATE TABLE USER (
+    ID INT NOT NULL,
+    USERNAME VARCHAR(40) NOT NULL
+);
+----

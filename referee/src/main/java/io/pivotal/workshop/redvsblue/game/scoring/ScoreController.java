@@ -25,8 +25,8 @@ public class ScoreController {
     }
 
     @GetMapping
-    public ResponseEntity<Pair<Long, Long>> getScore() {
-        Pair<Long, Long> score = this.scoringService.getScore();
+    public ResponseEntity<Score> getScore() {
+        Score score = this.scoringService.getScore();
 
         if (score == null) {
             return ResponseEntity.noContent().build();

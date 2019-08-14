@@ -3,7 +3,7 @@
 <head>
     <title>Red vs Blue Referee Service</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="refresh" content="1" />
+    <meta http-equiv="refresh" content="1"/>
     <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css"/>
     <link rel="stylesheet" th:href="@{/css/progress.css}" href="../static/css/progress.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900&display=swap" rel="stylesheet">
@@ -32,10 +32,10 @@
         <svg class="ico-cup">
             <use xlink:href="#cup"></use>
         </svg>
-        SCORE: <b th:text="${score.getFirst()}">53</b>
+        SCORE: <b th:text="${score.getRed()}">53</b>
     </h1>
     <!--/*@thymesVar id="score" type="org.springframework.data.util.Pair"*/-->
-    <progress max="1000" value="80" th:value="${score.getFirst()}" class="html5" id="red"></progress>
+    <progress max="1000" value="80" th:value="${score.getRed()}" class="html5" id="red"></progress>
 </div>
 <div class="leaderboard blue">
     <h1>
@@ -58,10 +58,10 @@
         <svg class="ico-cup">
             <use xlink:href="#cup"></use>
         </svg>
-        SCORE: <b th:text="${score.getSecond()}">53</b>
+        SCORE: <b th:text="${score.getBlue()}">53</b>
     </h1>
     <!--/*@thymesVar id="score" type="org.springframework.data.util.Pair"*/-->
-    <progress max="1000" value="80" th:value="${score.getSecond()}" class="html5" id="blue"></progress>
+    <progress max="1000" value="80" th:value="${score.getBlue()}" class="html5" id="blue"></progress>
 </div>
 <a class="logo left" target="_blank" href="https://www.pivotal.io/">
     <img src="../static/images/pivotal.jpg" th:src="@{/images/pivotal.jpg}" alt="Pivotal Software, Inc."/>
