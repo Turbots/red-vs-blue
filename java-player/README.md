@@ -394,6 +394,7 @@ applications:
 ```
 
 Be sure to fill in <YOUR_NAME> so the different applications won't clash with each other.
+Also, automatically there is a route being created for you in the form of `red-team-<YOUR_NAME>.apps.pcfone.io` so if that route has been taken already, the deployment will fail.
 Every player will be deploying its own application.
 
 ### Package your application
@@ -407,3 +408,9 @@ Make sure to package your application in a Jar.
 ```
 
 ### CF PUSH
+
+This is the easy part:
+
+```bash
+cf push
+```

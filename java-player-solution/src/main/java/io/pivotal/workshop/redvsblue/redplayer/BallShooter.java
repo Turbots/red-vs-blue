@@ -54,7 +54,6 @@ public class BallShooter {
                 LOGGER.info("Shooting ball from [{}] to [{}]", shooter.getName(), target.getName());
                 this.outputChannels.output().send(new GenericMessage<>(new Ball(shooter, target)));
             });
-
         }
     }
 }
