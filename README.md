@@ -4,6 +4,8 @@ Welcome to the Red vs Blue workshop illustrating the power of the Pivotal Platfo
 
 # The Game
 
+![Red vs Blue - a form of Dodgeball](dodgeball.gif "Red vs Blue - a form of Dodgeball")
+
 In this workshop, we will play a little game of throwing balls at each other.
 This is how the workshop is technically set up:
 
