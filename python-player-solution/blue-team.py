@@ -1,21 +1,18 @@
 """
-A first simple Cloud Foundry Flask app
+A simple Python app for the Pivotal Platform workshop.
 
-Author: Ian Huston
-License: See LICENSE.txt
+Author: Dieter Hubau
 
 """
 # !/usr/bin/env python
 import json
 import os
+from datetime import timedelta
 
 import pika
-from flask import Flask
+from timeloop import Timeloop
 
-app = Flask(__name__)
-
-# Get port from environment variable or choose 9099 as local default
-port = int(os.getenv("PORT", 8081))
+tl = Timeloop()
 
 try:
     rabbit = dict(hostname='localhost', port=5672, username='guest', password='guest')
@@ -34,10 +31,10 @@ except RuntimeError:
     rabbit = None
 
 
-@app.route('/')
-def keys():
+@tl.job(interval=timedelta(milliseconds=1000))
+def send_message():
     if rabbit:
-        message = '{"thrower":{"id":2},"target":{"id":10}}'
+        message = '{"thrower":{"id":10},"target":{"id":2}}'
 
         channel.basic_publish(exchange='balls', routing_key='', body=message)
 
@@ -49,5 +46,4 @@ def keys():
 
 
 if __name__ == '__main__':
-    # Run the app, listening on all IPs with our chosen port number
-    app.run(host='0.0.0.0', port=port)
+    tl.start(block=True)

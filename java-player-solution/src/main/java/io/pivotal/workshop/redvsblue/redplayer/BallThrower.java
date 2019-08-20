@@ -15,27 +15,25 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Component
-public class BallShooter {
+public class BallThrower {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BallShooter.class);
-
-    private static final String API_BASE_URL = "http://localhost:8080";
+    private static final Logger LOGGER = LoggerFactory.getLogger(BallThrower.class);
     private static final Random RANDOM = new Random();
 
     private final RestTemplate restTemplate;
     private final OutputChannels outputChannels;
+    private final RedPlayerProperties properties;
 
-    public BallShooter(RestTemplate restTemplate, OutputChannels outputChannels) {
+    public BallThrower(RestTemplate restTemplate, OutputChannels outputChannels, RedPlayerProperties properties) {
         this.restTemplate = restTemplate;
         this.outputChannels = outputChannels;
+        this.properties = properties;
     }
 
     @Scheduled(fixedRate = 5000)
-    public void shoot() {
-        LOGGER.info("Looking for who to shoot...");
-
+    public void throwBall() {
         ResponseEntity<List<Player>> response = restTemplate.exchange(
-                API_BASE_URL + "/score/ranking/",
+                properties.getRefereeUrl() + "/score/ranking/",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Player>>() {
@@ -43,7 +41,7 @@ public class BallShooter {
         List<Player> players = response.getBody();
 
         if (players == null || players.isEmpty()) {
-            LOGGER.info("Can't shoot a ball when they're no players...");
+            LOGGER.info("Can't throw a ball when there are no players...");
         } else {
             List<Player> teamRed = players.stream().filter(player -> player.isTeam(Team.RED)).collect(Collectors.toList());
             List<Player> teamBlue = players.stream().filter(player -> player.isTeam(Team.BLUE)).collect(Collectors.toList());
@@ -51,7 +49,7 @@ public class BallShooter {
             teamRed.forEach(shooter -> {
                 Player target = teamBlue.get(RANDOM.nextInt(teamBlue.size()));
 
-                LOGGER.info("Shooting ball from [{}] to [{}]", shooter.getName(), target.getName());
+                LOGGER.info("Throwing ball from [{}] to [{}]", shooter.getName(), target.getName());
                 this.outputChannels.output().send(new GenericMessage<>(new Ball(shooter, target)));
             });
         }

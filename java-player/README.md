@@ -186,7 +186,7 @@ Then use Postman or HTTPIE or Curl to create a red player in the referee applica
 http POST :8080/player < red-player.json
 ```
 
-#### Programatically
+#### Programmatically
 
 We could send an HTTP POST request to the Referee API in a programmatic way, when the application starts.
 In Spring Boot, there's a utility class for that, called a `CommandLineRunner`.
@@ -366,6 +366,10 @@ The referee application should pick these up and process them.
 Check the referee logs, they should look like this eventually:
 
 ```bash
+cf logs referee --recent
+```
+
+```bash
 2019-08-14 18:10:27.780  INFO 32577 --- [s6GykvMe7OMkw-1] i.p.w.r.game.scoring.ScoringService      : Checking Ball thrown from [Dieter Hubau] to [Lars Rosenquist]...
 2019-08-14 18:10:27.780  INFO 32577 --- [s6GykvMe7OMkw-1] i.p.w.r.game.scoring.ScoringService      : HIT!
 ```
@@ -383,19 +387,26 @@ Create a `manifest.yml` file in the root of the java-player folder:
 
 ---
 applications:
-  - name: red-team-<YOUR_NAME>
+  - name: red-team-<USERNAME>
     path: target/red-player.jar
     buildpacks:
       - java_buildpack_offline
     instances: 1
+    health-check-type: process
     memory: 1G
     services:
       - rabbit
+    env:
+      RED_REFEREE_URL: 'https://referee.apps.pcfone.io'
 ```
 
-Be sure to fill in <YOUR_NAME> so the different applications won't clash with each other.
-Also, automatically there is a route being created for you in the form of `red-team-<YOUR_NAME>.apps.pcfone.io` so if that route has been taken already, the deployment will fail.
-Every player will be deploying its own application.
+Be sure to fill in <USERNAME> so the different applications won't clash with each other.
+By default, there is a route being created for you in the form of `red-team-<USERNAME>.apps.pcfone.io` so if that route has been taken already, the deployment will fail.
+
+> Every player will be deploying its own application so make sure the <USERNAME> is unique.
+
+The health check type is set to `process` since we didn't build a web application, so the default health check (http) will not work.
+The platform will watch the process and restart the app automatically when the process crashes.
 
 ### Package your application
 
@@ -409,8 +420,16 @@ Make sure to package your application in a Jar.
 
 ### CF PUSH
 
-This is the easy part:
+Time to deploy out application to the Pivotal Platform:
 
 ```bash
 cf push
+```
+
+The manifest will be uploaded, the Java Buildpack will package the application into a droplet,
+and the droplet will be run as a container on the Pivotal Platform.
+Check the logs if you wanna see what happened since the deployment:
+
+```bash
+cf logs red-team-<USERNAME> --recent
 ```

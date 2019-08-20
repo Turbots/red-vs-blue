@@ -1,9 +1,10 @@
 ---
 applications:
 - name: red-vs-blue-python
+  instances: 1
   memory: 128MB
   buildpacks:
     - python_buildpack
-  command: python hello.py
+  command: python blue-team.py
   services:
     - rabbit

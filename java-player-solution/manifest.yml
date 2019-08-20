@@ -5,6 +5,9 @@ applications:
     buildpacks:
       - java_buildpack_offline
     instances: 1
+    health-check-type: process
     memory: 1G
     services:
       - rabbit
+    env:
+      RED_REFEREE_URL: 'https://referee.apps.pcfone.io'

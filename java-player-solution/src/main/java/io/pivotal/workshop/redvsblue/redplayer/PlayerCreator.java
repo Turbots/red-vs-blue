@@ -14,22 +14,24 @@ public class PlayerCreator implements CommandLineRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(PlayerCreator.class);
 
     private final RestTemplate restTemplate;
+    private final RedPlayerProperties properties;
 
-    public PlayerCreator(RestTemplate restTemplate) {
+    public PlayerCreator(RestTemplate restTemplate, RedPlayerProperties properties) {
         this.restTemplate = restTemplate;
+        this.properties = properties;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        Player red = new Player(null, "Stupid Cunt", 0L, Team.RED);
+        Player dieterHubau = new Player(null, "Dieter Hubau", 0L, Team.RED);
 
         try {
-            ResponseEntity<Player> response = this.restTemplate.postForEntity("http://localhost:8080/player", red, Player.class);
+            ResponseEntity<Player> response = this.restTemplate.postForEntity(properties.getRefereeUrl() + "/player", dieterHubau, Player.class);
             if (response.getStatusCode().is2xxSuccessful()) {
                 LOGGER.info("Player [{}] with ID [{}] created successfully", response.getBody().getName(), response.getBody().getId());
             }
         } catch (RestClientException ex) {
-            LOGGER.warn("Could not create player [" + red.getName() + "]");
+            LOGGER.warn("Could not create player [" + dieterHubau.getName() + "]");
         }
     }
 }
