@@ -14,6 +14,17 @@ This is how the workshop is technically set up:
 As you can see, all the apps and services will be deployed and running on the Pivotal Platform.
 Let's go over the different parts of the diagram.
 
+# Preparing your Workstation
+
+Depending on which of the two teams you intent to participate in, you will have
+to install some additional tools on your local workstation.
+
+At the least, you will have to install the Cloud Foundry CLI. Instructions and
+links to the downloadable installer can be found [here](https://docs.pivotal.io/pivotalcf/2-3/cf-cli/install-go-cli.html).
+
+Depending on which Team you intent to be part of, you will also need to install
+the appropriate other tools, like e.g. Maven, Java JDK, etc.
+
 # Referee
 
 The referee has been created to act as sort of validator and score keeper in the Red vs Blue game.
