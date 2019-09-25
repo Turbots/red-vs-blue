@@ -99,7 +99,7 @@ Check the referee logs, they should look like this eventually:
 
 Once you are comfortable with your application, you should deploy this application to the Pivotal Platform.
 It's best to have a manifest file where you can define some characteristics of your application.
-Create a `manifest.yml` file in the root of the java-player folder:
+Create a `manifest.yml` file in the root of the python-player folder:
 
 [manifest.yml]
 ```yaml
