@@ -1,6 +1,10 @@
 .idea/
 *.iml
-.mvn/
 .git/
 target/
-.DS_Storeg
+.DS_Store
+
+**/.mvn/*
+!**/.mvn/wrapper/
+**/.mvn/wrapper/*
+!**/.mvn/wrapper/maven-wrapper.jar
