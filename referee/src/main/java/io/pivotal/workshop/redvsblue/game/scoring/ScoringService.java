@@ -44,7 +44,7 @@ public class ScoringService {
     }
 
     public Score getScore() {
-        if (this.playerRepository.countPlayerByTeam(Team.RED) == 0 || this.playerRepository.countPlayerByTeam(Team.RED) == 0) {
+        if (this.playerRepository.countPlayerByTeam(Team.RED) == 0 || this.playerRepository.countPlayerByTeam(Team.BLUE) == 0) {
             return null;
         }
         return new Score(this.playerRepository.teamScoreOf(Team.RED), this.playerRepository.teamScoreOf(Team.BLUE));
