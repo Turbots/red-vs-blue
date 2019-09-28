@@ -3,8 +3,11 @@ applications:
 - name: red-vs-blue-python
   instances: 1
   memory: 128MB
+  health-check-type: process
   buildpacks:
     - python_buildpack
   command: python blue-team.py
   services:
     - rabbit
+  env:
+    BLUE_REFEREE_URL: 'https://referee.apps.pcfone.io'
