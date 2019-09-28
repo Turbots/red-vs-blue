@@ -52,11 +52,11 @@ include::{snippets}/get-score/http-response.adoc[]
 
 To reset all scores to zero, perform an `HTTP POST` on the `/score` endpoint:
 
-include::{snippets}/reset-score/http-request.adoc[]
+include::{snippets}/reset-scores/http-request.adoc[]
 
 If you get back an `HTTP 200 OK` the score has been successfully reset:
 
-include::{snippets}/reset-score/http-response.adoc[]
+include::{snippets}/reset-scores/http-response.adoc[]
 
 ==== Ranking
 
