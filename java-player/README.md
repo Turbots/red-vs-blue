@@ -9,7 +9,7 @@ The Python player will be playing in team Blue.
 
 ## Initialize the project
 
-Go to start.spring.io and generate a new Spring Boot Project.
+Go to [start.spring.io](https://start.spring.io/) and generate a new Spring Boot Project.
 You can leave the defaults filled in, or provide your own custom information.
 
 You can chose `Maven` or `Gradle` as your dependency management tool.
