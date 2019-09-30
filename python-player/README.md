@@ -7,19 +7,19 @@ This is the tutorial for creating a Python based application for the Red vs Blue
 We will be playing for team BLUE for this tutorial.
 The Java player will be playing in team RED.
 
-## Initialize the project
-
-
-
 ## Setup the project
 
-
+Create a folder with the following files:
+* blue-team.py file containing the application code
+* requirements.txt file for listing Python libraries we depend on
 
 ## Run the project
 
 ### As a simple Python executable
 
-
+```bash
+python blue-team.py
+```
 
 ### As a Docker container
 
@@ -29,9 +29,9 @@ Make sure Docker is running:
 docker ps -a
 ```
 
-### Success
+## Success
 
-RabbitMQ Failure
+The application should now start, but it will fail with an error message indicating it cannot find a running RabbitMQ instance.
 
 ### Setup RabbitMQ
 
@@ -71,11 +71,10 @@ http POST :8080/player < blue-player.json
 
 #### Programmatically
 
-Don't.
+Probably too much work to implement this programmatically.
+Check out the [Referee REST API](https://referee.apps.pcfone.io/docs/index.html) to see which HTTP endpoint to call.
 
 ### Messaging
-
-Messaging setup.
 
 #### Send a message
 
@@ -86,7 +85,13 @@ Let's send a message every 5 seconds by scheduling a job.
 
 When you run this code, every 5 seconds a new message should be sent to the message broker.
 The referee application should pick these up and process them.
-Check the referee logs, they should look like this eventually:
+Check the referee logs:
+
+```bash
+cf logs referee
+```
+
+They should look like this eventually:
 
 ```bash
 2019-08-14 18:10:27.780  INFO 32577 --- [s6GykvMe7OMkw-1] i.p.w.r.game.scoring.ScoringService      : Checking Ball thrown from [Andreas Evers] to [Dieter Hubau]...
@@ -106,19 +111,27 @@ Create a `manifest.yml` file in the root of the python-player folder:
 
 ---
 applications:
-  - name: blue-team-<YOUR_NAME>
-    instances: 1
-    memory: 128MB
-    buildpacks:
-      - python_buildpack
-    command: python blue-team.py
-    services:
-      - rabbit
+- name: blue-team-dieter-hubau
+  instances: 1
+  memory: 128MB
+  health-check-type: process
+  buildpacks:
+    - python_buildpack
+  command: python blue-team.py
+  services:
+    - rabbit
+  env:
+    BLUE_REFEREE_URL: 'https://referee.apps.pcfone.io'
 ```
 
 Be sure to fill in <YOUR_NAME> so the different applications won't clash with each other.
 Also, automatically there is a route being created for you in the form of `blue-team-<YOUR_NAME>.apps.pcfone.io` so if that route has been taken already, the deployment will fail.
 Every player will be deploying its own application.
+
+The `health-check-type` has been set to `process` instead of the default `http` since we're just running a Python process here, not a web application.
+We specifically add a `command` to the manifest which will be executed when the container starts.
+We also add an environment variable to the URL of the referee app.
+This could later be solved by using container-to-container networking, allowing us to skip going through the router for each HTTP call.
 
 ### CF PUSH
 

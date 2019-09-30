@@ -1,6 +1,6 @@
 ---
 applications:
-- name: red-vs-blue-python
+- name: blue-team-dieter-hubau
   instances: 1
   memory: 128MB
   health-check-type: process
