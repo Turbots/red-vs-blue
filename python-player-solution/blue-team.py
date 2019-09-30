@@ -17,15 +17,12 @@ from timeloop import Timeloop
 tl = Timeloop()
 
 try:
-    rabbit = dict(hostname='localhost', port=5672, username='guest', password='guest')
+    rabbit = dict(hostname='localhost', port=5672, username='guest', password='guest', uri='amqp://guest:guest@localhost:5672/')
     if 'VCAP_SERVICES' in os.environ:
         services = json.loads(os.getenv('VCAP_SERVICES'))
-        rabbit = services['rabbit'][0]['credentials']
+        rabbit = services['p-rabbitmq'][0]['credentials']
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host=rabbit['hostname'],
-        port=rabbit['port'],
-        credentials=pika.credentials.PlainCredentials(username=rabbit['username'], password=rabbit['password'])))
+    connection = pika.BlockingConnection(pika.URLParameters(rabbit['uri']))
 
     channel = connection.channel()
 except RuntimeError:
