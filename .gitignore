@@ -1,3 +1,9 @@
+#ignore users and passwords
+password.txt
+users.txt
+removeusers.txt
+
+
 .idea/
 *.iml
 .git/
