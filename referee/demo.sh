@@ -4,10 +4,15 @@
 
 clear
 
-pe "cf login -a api.run.pcfone.io --sso"
+API_URL=$1
+ORG=$2
+SPACE=$3
 
-p "cf create-space red-vs-blue"
-pe "cf target -o pivot-dhubau -s red-vs-blue"
+pe "cf login -a $API_URL --skip-ssl-validation"
+
+pe "cf target -o $ORG"
+p "cf create-space $SPACE"
+pe "cf target -o $ORG -s $SPACE"
 
 pe "cf marketplace"
 p "cf create-service p.mysql db-small player-db"
@@ -15,6 +20,7 @@ p "cf create-service p-rabbitmq standard rabbit"
 pe "cf services"
 
 pe "mvn clean package"
+pe "cat manifest.yml"
 pe "cf push"
 pe "cf app referee"
 pe "cf logs referee --recent"
