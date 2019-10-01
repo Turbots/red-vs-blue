@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USERSFILE=removeusers.txt
-WORKSHOP_ORG=pcf-workshop
+WORKSHOP_ORG=dnp
 
 cf target -o ${WORKSHOP_ORG}
 
