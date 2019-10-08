@@ -7,6 +7,7 @@ import io.pivotal.workshop.redvsblue.game.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -69,6 +70,7 @@ public class ScoringService {
         }
     }
 
+    @Async
     @Transactional
     public void registerHit(Player thrower) {
         LOGGER.info("HIT!");

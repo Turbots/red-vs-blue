@@ -11,3 +11,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   flyway:
     baseline-on-migrate: true
+  cloud:
+    stream:
+      bindings:
+        balls:
+          group: 'referee'
