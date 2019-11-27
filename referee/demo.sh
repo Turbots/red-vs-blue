@@ -27,4 +27,4 @@ pe "cf logs referee --recent"
 
 pe "cf scale referee -i 2"
 pe "cf app referee"
-pe "cf logs referee --recent"
+pe "cf logs referee"

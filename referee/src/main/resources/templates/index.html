@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Red vs Blue Referee Service</title>
+    <title>HaaS workshop - Referee Service</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="refresh" content="1"/>
+    <meta http-equiv="refresh" content="30"/>
     <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css"/>
     <link rel="stylesheet" th:href="@{/css/progress.css}" href="../static/css/progress.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="title">
-    <h1>RED VS BLUE WORKSHOP</h1>
+    <h1>HaaS Workshop</h1>
 </div>
 <div class="leaderboard red">
     <h1>
@@ -63,14 +63,8 @@
     <!--/*@thymesVar id="score" type="org.springframework.data.util.Pair"*/-->
     <progress max="1000" value="80" th:value="${score.getBlue()}" class="html5" id="blue"></progress>
 </div>
-<a class="logo left" target="_blank" href="https://www.pivotal.io/">
-    <img src="../static/images/pivotal.jpg" th:src="@{/images/pivotal.jpg}" alt="Pivotal Software, Inc."/>
-</a>
-<a class="logo center" target="_blank" href="https://www.github.com/Turbots/red-vs-blue/">
-    <img src="../static/images/github.png" th:src="@{/images/github.png}" alt="Github Project"/>
-</a>
-<a class="logo right" target="_blank" href="https://pivotal.io/platform">
-    <img src="../static/images/pcf.png" th:src="@{/images/pcf.png}" alt="Pivotal Cloud Foundry"/>
+<a class="logo" target="_blank" href="https://www.github.com/Turbots/red-vs-blue/">
+    <img src="../static/images/haas.png" th:src="@{/images/haas.png}" alt="HaaS Innovatieplatform"/>
 </a>
 </body>
 </html>
